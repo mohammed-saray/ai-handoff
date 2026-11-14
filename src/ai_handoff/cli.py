@@ -12,6 +12,12 @@ from . import __version__
 from .core import TARGETS, prompt_for, recent_requests, render, slug
 
 
+def _write(path, text):
+    """Write UTF-8 with LF endings (Path.write_text has no newline= before Python 3.10)."""
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(text)
+
+
 def copy_to_clipboard(text: str) -> bool:
     for cmd in (["clip"], ["pbcopy"], ["wl-copy"], ["xclip", "-selection", "clipboard"]):
         if shutil.which(cmd[0]):
@@ -89,7 +95,7 @@ def main(argv=None) -> int:
     out = Path(a.out) if a.out else root / "docs" / "handoffs" / \
         f"{datetime.now():%Y-%m-%d-%H%M}-{slug(goal.splitlines()[0] if goal else root.name)}.md"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(doc, encoding="utf-8", newline="\n")
+    _write(out, doc)
     try:
         shown = out.resolve().relative_to(root).as_posix()
     except ValueError:
