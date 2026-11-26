@@ -19,8 +19,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mohammed2345353/ai-handoff"
-Issues = "https://github.com/mohammed2345353/ai-handoff/issues"
+Homepage = "https://github.com/mohammed-saray/ai-handoff"
+Issues = "https://github.com/mohammed-saray/ai-handoff/issues"
 
 [project.scripts]
 ai-handoff = "ai_handoff.cli:main"
